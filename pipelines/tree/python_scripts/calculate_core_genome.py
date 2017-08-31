@@ -1,0 +1,68 @@
+#!/usr/bin/env python
+
+import numpy as np
+import subprocess
+import sys
+import os
+import sys
+
+inputOptions = sys.argv[1:]
+
+#usage: groups_all.tab genes.fasta
+
+
+def main():
+
+
+	input_file = [n for n in open(inputOptions[0],'r').read().replace("\r","").split("\n") if len(n)>0]
+	sequences=read_fasta(inputOptions[1])	
+
+	total_strains={}
+	protein_cluster={}
+	counter=0
+	for line in input_file:
+		counter+=1
+		protein_cluster[counter]=list()
+		cluster=Cluster(counter)
+		cluster.proteins=line.split(" ")
+		for protein in line.split(" "):
+			strain=protein.split("|")[0]
+			total_strains[strain]=1
+			cluster.strains[strain]=1
+		protein_cluster[counter]=cluster
+
+	number_of_strains= len(total_strains.keys())
+	for cluster in sorted(protein_cluster.keys()):
+		if len(protein_cluster[cluster].proteins)==number_of_strains and len(protein_cluster[cluster].strains)==number_of_strains:
+			to_print=""
+			for gene in sorted(protein_cluster[cluster].proteins):
+				to_print+=">"+gene+"\n"
+				to_print+=sequences[gene]+"\n"
+
+			f = open("../gene_cluster/gene_cluster_"+str(cluster)+".fasta",'w')
+			f.write(to_print)
+
+def read_fasta(file_name):
+	sequences={}
+	fasta_file = [n for n in open(file_name,'r').read().replace("\r","").split("\n") if len(n)>0]
+	for line in fasta_file:
+		if line[0:1]==">":
+			if line[1:5]=="LSEI":
+				name = "ATCC334"+"|"+line[1:].split(" ")[0]
+			else:
+				name = line[1:].split("_")[0]+"|"+line[1:].split(" ")[0]
+			
+			sequences[name]=""
+		else:
+			sequences[name]+=line
+
+	return sequences
+class Cluster:
+	def __init__(self, name):
+		self.name=name
+		self.strains={}
+		self.proteins=list()
+		
+
+
+main()

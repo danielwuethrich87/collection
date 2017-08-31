@@ -1,0 +1,4 @@
+pick_otus:enable_rev_strand_match       True
+align_seqs:template_fp /data/projects/p265_ITS_AMF_Jean_Yves/analysis_qiime/its_12_11_otus/rep_set_alignment/97_otus.muscle.fasta
+assign_taxonomy:id_to_taxonomy_fp /data/projects/p265_ITS_AMF_Jean_Yves/analysis_qiime/its_12_11_otus/taxonomy/97_otu_taxonomy.txt
+assign_taxonomy:reference_seqs_fp /data/projects/p265_ITS_AMF_Jean_Yves/analysis_qiime/its_12_11_otus/rep_set/97_otus.fasta

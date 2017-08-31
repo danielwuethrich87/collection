@@ -1,0 +1,5 @@
+pick_otus:enable_rev_strand_match       True
+align_seqs:template_fp /data/projects/p261_jores_16S/SILVA/SILVA_128_QIIME_release/rep_set_aligned/97/97_otus_aligned.fasta
+pynast_template:alignment_fp    /data/projects/p261_jores_16S/SILVA/SILVA_128_QIIME_release/rep_set_aligned/97/97_otus_aligned.fasta
+assign_taxonomy:reference_seqs_fp       /data/projects/p261_jores_16S/SILVA/SILVA_128_QIIME_release/rep_set/rep_set_16S_only/97/97_otus_16S.fasta
+assign_taxonomy:id_to_taxonomy_fp       /data/projects/p261_jores_16S/SILVA/SILVA_128_QIIME_release/taxonomy/16S_only/97/consensus_taxonomy_all_levels.txt

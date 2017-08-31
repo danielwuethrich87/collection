@@ -1,0 +1,134 @@
+karyotype = tab_files/BacteriaContigs.txt
+
+<ideogram>
+
+
+<spacing>
+default = 0.01r
+</spacing>
+
+label_size       = 20
+radius    = 0.6r
+thickness = 50p
+fill      = yes
+fill_color = black
+show_label       = yes
+label_font       = bold
+label_radius = dims(ideogram,radius_outer) + 90p
+</ideogram>
+
+
+
+
+<plots>
+<plot>
+type = scatter
+glyph = triangle
+glyph_size = 24p
+file = tab_files/linkends.txt
+min = 0
+max = 1
+r0 = 0.97r
+r1 = 0.97r
+fill_color=black
+#<rules>
+#<rule>
+#importance = 100
+#condition  = 1
+#fill_color = eval("chr".substr(_CHR_,2))
+#</rule>
+#</rules>
+</plot>
+
+
+
+<plot>
+type       = histogram
+file       = tab_files/deletions.tab
+z          = 5
+extend_bin = no
+color      = black
+fill_under = yes
+fill_color = green
+min        = -50
+max        = 0
+r0         = 0.50r
+r1         = 0.99r
+</plot>
+
+</plots>
+
+
+
+<links>
+ribbon           = yes
+flat             = yes
+<link>
+
+file       = tab_files/links.tab
+radius        = 0.95r
+</link>
+
+</links>
+
+
+show_ticks          = yes
+show_tick_labels    = yes
+
+<ticks>
+
+chromosomes_display_default = yes
+chromosomes = chrx
+
+radius               = dims(ideogram,radius_outer)
+orientation          = out
+label_multiplier     = 0.001
+
+
+
+
+<tick>
+spacing        = 100000u
+size           = 16p
+thickness      = 2p
+color          = black
+show_label     = yes
+label_size     = 20p
+label_offset   = 5p
+format         = %d
+</tick>
+
+<tick>
+spacing        = 10000u
+size           = 8p
+thickness      = 2p
+color          = black
+show_label     = no
+label_size     = 20p
+label_offset   = 5p
+format         = %d
+</tick>
+
+</ticks>
+
+################################################################
+# The remaining content is standard and required. It is imported 
+# from default files in the Circos distribution.
+#
+# These should be present in every Circos configuration file and
+# overridden as required. To see the content of these files, 
+# look in etc/ in the Circos distribution.
+
+<image>
+# Included from Circos distribution.
+<<include etc/image.conf>>
+</image>
+
+# RGB/HSV color definitions, color lists, location of fonts, fill patterns.
+# Included from Circos distribution.
+<<include etc/colors_fonts_patterns.conf>>
+
+# Debugging, I/O an dother system parameters
+# Included from Circos distribution.
+<<include etc/housekeeping.conf>>
+

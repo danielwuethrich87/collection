@@ -18,7 +18,7 @@
 export working_dir=$PWD
 
 
-<<comment
+
 cd "$working_dir"/blastparallel
 
 cat blast.* > blastparallel.tab
@@ -28,14 +28,14 @@ orthomclBlastParser "$working_dir"/blastparallel/blastparallel.tab "$working_dir
 cd "$working_dir"
 
 
-comment
+
 
 
 cd /data/users/dwuethrich/mySQL_server/mysql-5.6.15-linux-glibc2.5-x86_64
 
 ./bin/mysqld_safe --defaults-file=/data/users/dwuethrich/mySQL_server/my.cnf &
 
-sleep 200
+sleep 2000
 
 
 mysql --defaults-file=/data/users/dwuethrich/mySQL_server/my.cnf -u root -e "create database orthomcl;"

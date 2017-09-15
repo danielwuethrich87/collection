@@ -40,13 +40,17 @@ def main():
 			hsp.align_identdity=float(line.split("\t")[6])
 			hsp.identities=int(line.split("\t")[7])
 			hsp.query=line.split("\t")[0]	
-			hsp.hit_def=line.split("\t")[2]
+			hsp.hit_def=" ".join(line.split("\t")[2].split(" ")[1:])
+		
 			hsp.align_length=int(line.split("\t")[5])	
 
 			species_info=hsp.hit_def#.split(";")[len(hsp.hit_def.split(";"))-1]
 			hsp.genus_path=species_info.rsplit(';',1)[0]+"|"+species_info.rsplit(';',1)[1].replace(" ",";")
 			#hsp.species=species_info.rsplit(';',1)[1]
-			hsp.species=species_info.rsplit(';',1)[1].split(" ")[0]+" "+species_info.rsplit(';',1)[1].split(" ")[1]
+
+			
+			if len(species_info.rsplit(';',1)[1].split(" "))>=2:
+				hsp.species=species_info.rsplit(';',1)[1].split(" ")[0]+" "+species_info.rsplit(';',1)[1].split(" ")[1]
 			
 
 			genus_path[hsp.species]=hsp.genus_path
@@ -112,7 +116,7 @@ def main():
 	found_species=""
 	for species in sorted(species_count.items(), key=operator.itemgetter(1), reverse=True):
 	
-		if len(species[0].split(","))==1:
+		if len(species[0].split(","))==1 and len(species[0].split("-"))==1:
 			found_species+=str(species[0])+"; "
 	
 
@@ -179,45 +183,6 @@ class Hsp:
 		self.query=""
 		self.hit_def=""
 	
-"""
-def get_fusion_name2(best_species):
-
-	name_part={}
-	for i in range(0,2):
-		name_part[i]=list()
-		for species in best_species.keys():	
-			
-			if len(species.split("_"))>=i+1:
-				
-				name_part[i].append(species.split("_")[i])
-	final_name=""
-	for i in name_part.keys():
-		if len(set( name_part[i]))==1:
-			final_name+="_"+list(set(name_part[i]))[0]
-	if final_name!="":
-		return final_name[1:]
-	else:
-		return "bolow_cutoff"
-"""
-
-
-"""
-	for line in input_file:
-		if line[0:1]==">":
-			name = line[1:]
-			sequences2hsp[name]=list()
-			sequences[name]=""
-		else:
-			sequences[name]+=line
-"""
-
-
-
-
-"""
-	blast_file = [n for n in open(inputOptions[0],'r').read().replace("\r","").split("\n") if len(n)>0]
-	for line in blast_file:
-"""
 
 	
 main()		

@@ -4,7 +4,7 @@
 #$ -cwd #executes from the current directory and safes the ouputfiles there
 #$ -t 1-3
 #$ -pe smp 4
-#$ -tc 3
+#$ -tc 1
 
 array=( mock MK401 RMK150 RMK202)
 

@@ -41,7 +41,7 @@ mkdir -p "$temp"/"$i"/cov_selection
 
 #cat "$temp"/r1.fastq.gz "$temp"/r2.fastq.gz > "$temp"/reads.fastq.gz
 
-bowtie2 -p "$cores" -x /data/projects/p187_cattle_and_sheep_encephalitis/cattle/small_unit_16s_18s_analysis/db/silva_truncated_bacteria_and_archea/SILVA_123.1_SSURef_Nr99_tax_silva_trunc_no_uncultured_full_names_bacteria_and_archaea -1 "$temp"/r1.fastq.gz -2 "$temp"/r2.fastq.gz -S "$temp"/"$i"/cov_selection/scaffolds.sam 2> "$temp"/"$i"/cov_selection/mapping_Info."$i" # --un-conc-gz "$temp"/"$i"/cov_selection/not_aligned_reads.fastq.gz
+bowtie2 --no-unal -p "$cores" -x /data/projects/p187_cattle_and_sheep_encephalitis/cattle/small_unit_16s_18s_analysis/db/silva_truncated_bacteria_and_archea/SILVA_123.1_SSURef_Nr99_tax_silva_trunc_no_uncultured_full_names_bacteria_and_archaea -1 "$temp"/r1.fastq.gz -2 "$temp"/r2.fastq.gz -S "$temp"/"$i"/cov_selection/scaffolds.sam 2> "$temp"/"$i"/cov_selection/mapping_Info."$i" # --un-conc-gz "$temp"/"$i"/cov_selection/not_aligned_reads.fastq.gz
 
 samtools view -bS "$temp"/"$i"/cov_selection/scaffolds.sam > "$temp"/"$i"/cov_selection/scaffolds.bam
 

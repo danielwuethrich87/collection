@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<smrtpipeSettings>
+    <protocol version="2.2.0" id="RS_HGAP_Assembly.3">
+        <param name="name"><value>RS_HGAP_Assembly</value></param>
+        <param name="otfReference"><value>reference</value></param>
+        <param name="deferRefCheck"><value>True</value></param>
+        <param name="fetch"><value>common/protocols/preprocessing/Fetch.1.xml</value></param>
+        <param name="filtering"><value>common/protocols/filtering/PreAssemblerSFilter.1.xml</value></param>
+        <param name="assembly"><value>common/protocols/assembly/PreAssemblerHGAP.1.xml</value><value>common/protocols/assembly/CeleraAssemblerHGAP.1.xml</value></param>
+        
+        <param name="referenceUploader"><value>common/protocols/referenceuploader/ReferenceUploaderHGAP.1.xml</value></param>
+    </protocol>
+    <moduleStage name="fetch">
+        <module id="P_Fetch"></module>
+    </moduleStage>
+    <moduleStage name="filtering">
+        <module id="P_Filter" >
+            <param name="minLength"><value>100</value></param>
+            <param name="minSubReadLength"><value>500</value></param>
+            <param name="readScore"><value>0.80</value></param>
+        </module>
+        <module id="P_FilterReports" />
+    </moduleStage>
+    <moduleStage name="assembly">
+        <module id="P_PreAssemblerDagcon">
+            <param name="computeLengthCutoff"><value>true</value></param>
+            <param name="minLongReadLength"><value>6000</value></param>
+            <param name="targetChunks"><value>1</value></param>
+            <param name="splitBestn"><value>24</value></param>
+            <param name="totalBestn"><value>24</value></param>
+            <param name="blasrOpts"><value> -noSplitSubreads -minReadLength 200 -maxScore -1000 -maxLCPLength 16 -minMatch 14</value></param>
+        </module>
+        <module id="P_AssembleUnitig">
+            <param name="genomeSize"><value>2200000</value></param>
+            <param name="libraryName"><value>pacbioReads</value></param>
+            <param name="genFrgFile"><value>True</value></param>
+            <param name="defaultFrgMinLen"><value>500</value></param>
+            <param name="asmWatchTime"><value>600</value></param>
+            <param name="xCoverage"><value>20</value></param>
+            <param name="ovlErrorRate"><value>0.06</value></param>
+            <param name="ovlMinLen"><value>40</value></param>
+            <param name="merSize"><value>14</value></param>
+            <param name="specTmpl"><value>analysis/etc/celeraAssembler/unitig.spec</value></param>
+        </module>
+    </moduleStage>
+    <moduleStage name="referenceUploader">
+        <module id="P_ReferenceUploader" >
+            <param name="runUploaderUnitig"><value>True</value></param>
+            <param name="runUploaderHgap"><value>False</value></param>
+            <param name="runUploader"><value>False</value></param>
+            <param name="name"><value>reference</value></param>
+            <param name="organism"/>
+            <param name="ploidy"/>
+            <param name="user"/>
+            <param name="sawriter"><value>sawriter -blt 8 -welter</value></param>
+            <param name="gatkDict"><value>createSequenceDictionary</value></param>
+            <param name="samIdx"><value>samtools faidx</value></param>
+        </module>
+    </moduleStage>
+    <moduleStage name="mapping">
+        <module id="P_Mapping" >
+            <param name="maxHits"><value>10</value></param>
+            <param name="maxDivergence"><value>30</value></param>
+            <param name="minAnchorSize"><value>12</value></param>
+            <param name="samBam"><value>True</value></param>
+            <param name="gff2Bed"><value>True</value></param>
+            <param name="placeRepeatsRandomly"><value>True</value></param>
+	    <param name="pbalign_opts"><value> --seed=1 --minAccuracy=0.75 --minLength=50 --algorithmOptions="-useQuality" </value></param>
+            <param name="pulseMetrics"><value>DeletionQV,IPD,InsertionQV,PulseWidth,QualityValue,MergeQV,SubstitutionQV,DeletionTag</value></param>
+            <param name="loadPulsesOpts"><value>bymetric</value></param>
+        </module>
+        <module id="P_MappingReports"/>
+    </moduleStage>
+    <moduleStage name="consensus">
+        <module id="P_AssemblyPolishing" >
+            <param name="enableMapQVFilter"><value>True</value></param>
+        </module>
+    </moduleStage>
+    <fileName>RS_HGAP_Assembly.3.xml</fileName>
+</smrtpipeSettings>

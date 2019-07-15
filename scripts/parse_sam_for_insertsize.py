@@ -34,7 +34,7 @@ def main():
 					if flag_2[len(flag_2)-5]=="1": # read is reversed
 						read_start_2=read_start_2+len(line.split("\t")[9])
 						
-					if 	scaffold == scaffold_2 and flag_2[len(flag_2)-5]!=flag[len(flag)-5] and flag_2[len(flag_2)-9]!="1" and flag_2[len(flag_2)-9]!="1":
+					if 	scaffold == scaffold_2 and flag_2[len(flag_2)-5]!=flag[len(flag)-5] and flag_2[len(flag_2)-9]!="1" :
 						if flag[len(flag)-5]!="1":
 							print read_start_2-read_start
 

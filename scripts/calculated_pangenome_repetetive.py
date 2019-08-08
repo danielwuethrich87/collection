@@ -32,7 +32,7 @@ def main():
 		
 	strains=strain2genes.keys()
 
-	repetitions=1
+	repetitions=100
 		
 	pan_genomes={}
 	core_genomes={}
